@@ -17,7 +17,6 @@ public class JstlServlet3 extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String parameter = req.getParameter("number");
-
 		UserService.getService().deleteUser(Integer.valueOf(parameter));
 
 		resp.sendRedirect("/webappsample/jstl1");

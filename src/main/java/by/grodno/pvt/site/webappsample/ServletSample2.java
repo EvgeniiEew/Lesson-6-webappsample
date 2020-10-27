@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "HelloServlet2", urlPatterns = { "/" })
 public class ServletSample2 extends HttpServlet {
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		PrintWriter writer = resp.getWriter();
-		writer.print("!!!!!!!!!!    IM INCLUDED PART   !!!!!!!!!!!!!");
-	}
+//	@Override
+//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		PrintWriter writer = resp.getWriter();
+//		writer.print("!!!!!!!!!!    IM INCLUDED PART   !!!!!!!!!!!!!");
+//	}
 
 }
