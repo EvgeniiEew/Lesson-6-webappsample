@@ -28,7 +28,7 @@
             <label for="createMale">Male</label><br>
             <input type="radio" id="createFemale" name="male" value="false">
             <label for="createFemale">Female</label><br>
-
+            Salary: <input type = "text" name = "salary" />
             <input type="submit" value="Submit"/>
         </form>
     </c:if>
@@ -41,8 +41,9 @@
             <br/>
             BirthDate: <input type="text" name="birthdate" value=" <%
                             Date userBirth = ((User) request.getAttribute("currUser")).getBirthdate();
+                            if (userBirth != null) {
                             out.println(new SimpleDateFormat("yyyy-MM-dd").format(userBirth));
-                        %>"/>
+    }                    %>"/>
             <br/>
             <label for="editFemale">Male</label>
             <input type="radio" id="editMale" name="male" value="true" ${currUser.male ? 'checked' :''}>
@@ -54,8 +55,8 @@
         </form>
     </c:if>
 
-    <%--   </c:forEach>--%>
-    <!--POST localhost/webappsample/user?firstName=asd&lastName=qwe&birthdate=1234-12-12&male=true -->
+<%--       </c:forEach>--%>
+    <!--POST localhost/webappsample/edit?firstName=asd&lastName=qwe&birthdate=1234-12-12&male=true -->
 </body>
 </html>
 
