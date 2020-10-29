@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 
 public class JstlServlet4Edit extends HttpServlet {
     private int currentUserIndex;
+    private int userIdSub;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,26 +22,31 @@ public class JstlServlet4Edit extends HttpServlet {
         this.currentUserIndex = index;
         User userForEdit = UserService.getService().getUsers().get(index);
 
+        String numberUserFoSUBD = req.getParameter("k");
+        int userId = Integer.parseInt(numberUserFoSUBD);
+        this.userIdSub = userId;
+
         req.setAttribute("user", userForEdit);
         req.setAttribute("number", index);
         getServletContext().getRequestDispatcher("/jstl2.jsp").forward(req, resp);
     }
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        try {
-//            User newUser = new User(null,
-//                    req.getParameter("firstName"),
-//                    req.getParameter("lastName"),
-//                    new SimpleDateFormat("yyy-MM-dd").parse(req.getParameter("birthdate")),
-//                    Boolean.parseBoolean(req.getParameter("male"))
-//            );
-//            UserService.getService().updateUser(newUser, this.currentUserIndex);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        resp.sendRedirect("/webappsample/jstl1");
-//    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            User newUser = new User(null,
+                    req.getParameter("firstName"),
+                    req.getParameter("lastName"),
+                    new SimpleDateFormat("yyy-MM-dd").parse(req.getParameter("birthdate")),
+                    Boolean.valueOf(req.getParameter("male")),
+                    Double.valueOf(req.getParameter("salary"))
+            );
+            UserService.getService().updateUser(newUser, this.userIdSub);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        resp.sendRedirect("/webappsample/jstl1");
+    }
 }
 
 

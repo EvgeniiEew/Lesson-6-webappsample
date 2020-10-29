@@ -13,13 +13,14 @@ public class User {
 //    private Integer department;
     private Double salary;
 
-    public User(Integer id, String firstMame, String lastName, Date birthdate, boolean male) {
+    public User(Integer id, String firstMame, String lastName, Date birthdate, boolean male, Double salary) {
         super();
         this.id = id;
         this.firstName = firstMame;
         this.lastName = lastName;
         this.birthdate = birthdate;
         this.male = male;
+        this.salary = salary;
     }
 
     public Integer getId() {

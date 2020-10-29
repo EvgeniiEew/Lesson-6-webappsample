@@ -51,6 +51,8 @@
             <label for="editFemale">Female</label>
             <input type="radio" id="editFemale" name="male" value="false" ${currUser.male ? '' :'checked'}>
             <br>
+            <label for="createFemale">Female</label><br>
+            Salary: <input type = "text" name = "salary" />
             <input type="submit" value="Submit"/>
         </form>
     </c:if>
