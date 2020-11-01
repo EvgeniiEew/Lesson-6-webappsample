@@ -39,8 +39,9 @@ public class JstlServlet4Edit extends HttpServlet {
                     req.getParameter("lastName"),
                     new SimpleDateFormat("yyy-MM-dd").parse(req.getParameter("birthdate")),
                     Boolean.valueOf(req.getParameter("male")),
-                    Double.valueOf(req.getParameter("salary"))
-            );
+                    Double.valueOf(req.getParameter("salary")),
+                    Integer.valueOf(req.getParameter("depNumber")),
+                    req.getParameter("nameDept"));
             UserService.getService().updateUser(newUser, this.userIdSub);
         } catch (ParseException e) {
             e.printStackTrace();

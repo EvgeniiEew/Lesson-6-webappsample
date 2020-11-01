@@ -9,11 +9,11 @@ public class User {
     private String lastName;
     private Date birthdate;
     private boolean male;
+    private Integer depNumber;
+    private String nameDept;
 
-//    private Integer department;
-    private Double salary;
 
-    public User(Integer id, String firstMame, String lastName, Date birthdate, boolean male, Double salary) {
+    public User(Integer id, String firstMame, String lastName, Date birthdate, boolean male, Double salary, Integer depNumber, String nameDept) {
         super();
         this.id = id;
         this.firstName = firstMame;
@@ -21,6 +21,28 @@ public class User {
         this.birthdate = birthdate;
         this.male = male;
         this.salary = salary;
+        this.depNumber = depNumber;
+        this.nameDept = nameDept;
+    }
+
+    //    private Integer department;
+    private Double salary;
+
+    public Integer getDepNumber() {
+        return depNumber;
+    }
+
+    public String getNameDept() {
+        return nameDept;
+    }
+
+
+    public void setDepNumber(Integer depNumber) {
+        this.depNumber = depNumber;
+    }
+
+    public void setNameDept(String nameDept) {
+        this.nameDept = nameDept;
     }
 
     public Integer getId() {

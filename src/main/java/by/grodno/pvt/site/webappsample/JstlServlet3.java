@@ -14,12 +14,12 @@ import by.grodno.pvt.site.webappsample.service.UserService;
 
 public class JstlServlet3 extends HttpServlet {
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String parameter = req.getParameter("number");
-		UserService.getService().deleteUser(Integer.valueOf(parameter));
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String parameter = req.getParameter("number");
+        UserService.getService().deleteUser(Integer.valueOf(parameter));
 
-		resp.sendRedirect("/webappsample/jstl1");
-	}
+        resp.sendRedirect("/webappsample/jstl1");
+    }
 
 }

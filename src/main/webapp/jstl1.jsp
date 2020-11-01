@@ -25,6 +25,8 @@
             <th scope="col">Birthdate</th>
             <th scope="col">Sex</th>
             <th scope="col">Salary</th>
+            <th scope="col">depNumber</th>
+            <th scope="col">nameDept</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
@@ -48,6 +50,8 @@
                     <c:otherwise>Female</c:otherwise>
                 </c:choose></td>
                 <td>${requestScope.currUser.salary}</td>
+                <td>${requestScope.currUser.depNumber}</td>
+                <td>${requestScope.currUser.nameDept}</td>
                 <td><a class="btn btn-danger"
                        href="http://localhost:8080/webappsample/user/delete?number=${requestScope.currUser.id}">Delete
                     <a href="http://localhost:8080/webappsample/user/edit?number=${i}&k=${requestScope.currUser.id}">Edit</a>

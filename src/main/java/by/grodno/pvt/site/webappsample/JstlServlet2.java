@@ -23,9 +23,9 @@ public class JstlServlet2 extends HttpServlet {
                     new SimpleDateFormat("yyy-MM-dd")
                             .parse(req.getParameter("birthdate")),
                     Boolean.valueOf(req.getParameter("male")),
-                    Double.valueOf(req.getParameter("salary"))
-            );
-      //      user.setSalary(Double.valueOf(req.getParameter("salary")));
+                    Double.valueOf(req.getParameter("salary")),
+                    Integer.valueOf(req.getParameter("depNumber")),
+                    req.getParameter("nameDept"));
 
             UserService.getService().addUser(user);
 

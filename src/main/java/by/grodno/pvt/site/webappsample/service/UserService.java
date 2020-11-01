@@ -62,11 +62,15 @@ public class UserService {
         Double sal = rs.getDouble(4);
         Date date = rs.getTimestamp(5);
         Boolean male = rs.getBoolean(6);
-        User user = new User(id, fName, lName, date, male,sal);
-      //  user.setSalary(sal);
+        Integer depNumber = rs.getInt(7);
+        String nameDept = rs.getString(9);
+        User user = new User(id, fName, lName, date, male, sal, depNumber, nameDept);
+        //  user.setSalary(sal);
 //        user.setDepartment(dept);
         return user;
-    };
+    }
+
+    ;
 
     public void deleteUser(Integer number) {
         try (Connection conn = DBUtils.getConnetion();
@@ -81,22 +85,24 @@ public class UserService {
         }
 
     }
-public void updateUser(User user, Integer number){
-    try (Connection conn = DBUtils.getConnetion();
-         PreparedStatement stmt = conn.prepareStatement(SQL.EDIT_ALL )){
 
-        stmt.setString(1, user.getFirstName());
-        stmt.setString(2, user.getLastName());
-        stmt.setDouble(3, user.getSalary());
-        stmt.setTimestamp(4,
-                Timestamp.valueOf(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS").format(user.getBirthdate())));
-        stmt.setBoolean(5, user.isMale());
-        stmt.setInt(6, number);
-        stmt.executeUpdate();
-    }catch (Exception e) {
-        LOGGER.error("error...", e);
+    public void updateUser(User user, Integer number) {
+        try (Connection conn = DBUtils.getConnetion();
+             PreparedStatement stmt = conn.prepareStatement(SQL.EDIT_ALL)) {
+
+            stmt.setString(1, user.getFirstName());
+            stmt.setString(2, user.getLastName());
+            stmt.setDouble(3, user.getSalary());
+            stmt.setTimestamp(4,
+                    Timestamp.valueOf(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS").format(user.getBirthdate())));
+            stmt.setBoolean(5, user.isMale());
+            stmt.setInt(6, user.getDepNumber());
+            stmt.setInt(7, number);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error("error...", e);
+        }
     }
-}
 
     public void addUser(User user) {
         try (Connection conn = DBUtils.getConnetion();
@@ -108,7 +114,8 @@ public void updateUser(User user, Integer number){
             stmt.setTimestamp(4,
                     Timestamp.valueOf(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS").format(user.getBirthdate())));
             stmt.setBoolean(5, user.isMale());
-
+            stmt.setInt(6, user.getDepNumber());
+            //  stmt.setString(7,user.getNameDept());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();

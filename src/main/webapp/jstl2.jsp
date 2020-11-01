@@ -28,7 +28,14 @@
             <label for="createMale">Male</label><br>
             <input type="radio" id="createFemale" name="male" value="false">
             <label for="createFemale">Female</label><br>
-            Salary: <input type = "text" name = "salary" />
+            Salary: <input type="text" name="salary"/>
+            <br/>
+            depNumber: <input type="text" name="depNumber"/>
+            <br/>
+            <br/>
+            nameDept: <input type="text" name="nameDept"/>
+            <br/>
+
             <input type="submit" value="Submit"/>
         </form>
     </c:if>
@@ -52,12 +59,18 @@
             <input type="radio" id="editFemale" name="male" value="false" ${currUser.male ? '' :'checked'}>
             <br>
             <label for="createFemale">Female</label><br>
-            Salary: <input type = "text" name = "salary" />
+            Salary: <input type="text" name="salary"/>
+            <br/>
+            depNumber: <input type="text" name="depNumber" value="${currUser.depNumber}"/>
+            <br/>
+            <br/>
+            nameDept: <input type="text" name="nameDept" value="${currUser.nameDept}"/>
+            <br/>
             <input type="submit" value="Submit"/>
         </form>
     </c:if>
 
-<%--       </c:forEach>--%>
+    <%--       </c:forEach>--%>
     <!--POST localhost/webappsample/edit?firstName=asd&lastName=qwe&birthdate=1234-12-12&male=true -->
 </body>
 </html>
