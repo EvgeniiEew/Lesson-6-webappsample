@@ -60,25 +60,29 @@
     </c:if>
     <a class="btn btn-primary"
        href="http://localhost:8080/webappsample/jstl2.jsp">Add user</a>
-        <br/>
-        <c:if test="${requestScope.departments != null}">
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">depNumber</th>
-                <th scope="col">nameDept</th>
-            </tr>
-            </thead>
-            <c:forEach var="i" begin="0" end="${fn:length(requestScope.departments)-1}">
-                <c:set var="currDepartament" scope="request"
-                       value="${requestScope.departments[i]}"/>
+    <br/>
+    <c:if test="${requestScope.departments != null}">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">depNumber</th>
+            <th scope="col">nameDept</th>
+            <th scope="col">communication between department and users</th>
+        </tr>
+        </thead>
+        <c:forEach var="i" begin="0" end="${fn:length(requestScope.departments)-1}">
+            <c:set var="currDepartament" scope="request"
+                   value="${requestScope.departments[i]}"/>
             <tr>
                 <td scope="row">${requestScope.currDepartament.depNumber}</td>
                 <td>${requestScope.currDepartament.nameDept}</td>
                 <td><a class="btn btn-danger"
-                       href="http://localhost:8080/webappsample/dept/number?number=${requestScope.currDepartament.depNumber}"> depatrments users </a>
+                       href="http://localhost:8080/webappsample/dept/number?number=${requestScope.currDepartament.depNumber}">
+                    depatrments users </a></td>
             </tr>
-            </c:forEach>
-        </table>
-        </c:if>
-        <br/>
+        </c:forEach>
+    </table>
+    </c:if>
+    <a class="btn btn-primary"
+       href="http://localhost:8080/webappsample/jstl4.jsp">Add dept</a>
+    <br/>

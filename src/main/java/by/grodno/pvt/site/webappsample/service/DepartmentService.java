@@ -1,8 +1,6 @@
 package by.grodno.pvt.site.webappsample.service;
 
-import javax.naming.event.ObjectChangeListener;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
@@ -11,6 +9,7 @@ import static by.grodno.pvt.site.webappsample.service.UserService.LOGGER;
 public class DepartmentService {
     private static DepartmentService departmentService;
     List<User> userArrayList = new ArrayList<User>();
+
     private DepartmentService() {
     }
 
@@ -47,13 +46,16 @@ public class DepartmentService {
         Department department = new Department(id, nameDept);
         return department;
     }
-    public List<User>  getUserfDep(){
+
+    public List<User> getUserfDep() {
         return this.userArrayList;
     }
-    public void delList(){
+
+    public void delList() {
         this.userArrayList.clear();
     }
-    public List<Department>  getDepUser(String parameter) {
+
+    public List<Department> getDepUser(String parameter) {
         List<Department> departmentsArrayList = new ArrayList<Department>();
         delList();
         try (Connection conn = DBUtils.getConnetion(); Statement stmt = conn.createStatement()) {
@@ -70,12 +72,14 @@ public class DepartmentService {
         }
         return departmentsArrayList;
     }
+
     private Department ToDepartment(ResultSet SelAll) throws SQLException {
         Integer id = SelAll.getInt(8);
         String nameDept = SelAll.getString(9);
         Department department = new Department(id, nameDept);
         return department;
     }
+
     private User ToUser(ResultSet SelAll) throws SQLException {
         Integer id = SelAll.getInt(1);
         String fName = SelAll.getString(2);
@@ -87,5 +91,16 @@ public class DepartmentService {
         String nameDept = SelAll.getString(9);
         User user = new User(id, fName, lName, date, male, sal, depNumber, nameDept);
         return user;
+    }
+
+    public void addDepartment(Department newDepartment) {
+        try (Connection conn = DBUtils.getConnetion();
+             PreparedStatement stmt = conn.prepareStatement(SQL.INSERT_DEPT)) {
+            stmt.setInt(1, newDepartment.getDepNumber());
+            stmt.setString(2, newDepartment.getNameDept());
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error("Something went wrong...", e);
+        }
     }
 }

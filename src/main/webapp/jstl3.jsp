@@ -29,10 +29,10 @@
         </tr>
         </thead>
         <c:forEach var="i" begin="0" end="${fn:length(requestScope.users)-1}">
-            <c:set var="currUser" scope="request"
-                   value="${requestScope.users[i]}"/>
+        <c:set var="currUser" scope="request"
+               value="${requestScope.users[i]}"/>
 
-            <tr>
+        <tr>
             <td scope="row">${requestScope.currUser.id}</td>
             <td>${requestScope.currUser.firstName}</td>
             <td>${requestScope.currUser.lastName}</td>
@@ -50,15 +50,11 @@
             </c:choose></td>
 
             <td>${requestScope.currUser.salary}</td>
-                <td scope="row">${requestScope.departments[0].depNumber}</td>
-                <td>${requestScope.departments[0].nameDept}</td>
+            <td scope="row">${requestScope.departments[0].depNumber}</td>
+            <td>${requestScope.departments[0].nameDept}</td>
 
-<%--                <c:forEach var="i" begin="0" end="${fn:length(requestScope.departments)-1}"> <c:set var="currDepartament"--%>
-<%--                                                                                                scope="request"--%>
-<%--                                                                                                value="${requestScope.departments[i]}"/>--%></td>
-                 </c:forEach>
-            </tr>
-<%--        </c:forEach>--%>
+            </c:forEach>
+        </tr>
     </table>
     </c:if>
 

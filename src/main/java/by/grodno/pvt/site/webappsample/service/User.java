@@ -25,7 +25,6 @@ public class User {
         this.nameDept = nameDept;
     }
 
-    //    private Integer department;
     private Double salary;
 
     public Integer getDepNumber() {
@@ -84,14 +83,6 @@ public class User {
     public void setMale(boolean male) {
         this.male = male;
     }
-
-//    public Integer getDepartment() {
-//        return department;
-//    }
-
-//    public void setDepartment(Integer department) {
-//        this.department = department;
-//    }
 
     public Double getSalary() {
         return salary;
