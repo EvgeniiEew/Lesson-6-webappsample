@@ -47,10 +47,14 @@
 	</servlet>
 
 	<servlet>
-		<servlet-name>Jstl4</servlet-name>
-		<servlet-class>by.grodno.pvt.site.webappsample.JstlServlet4Edit</servlet-class>
-	</servlet>
+	<servlet-name>Jstl4</servlet-name>
+	<servlet-class>by.grodno.pvt.site.webappsample.JstlServlet4Edit</servlet-class>
+</servlet>
 
+	<servlet>
+		<servlet-name>Jstl5</servlet-name>
+		<servlet-class>by.grodno.pvt.site.webappsample.JstlServlet5Dept</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>HelloServlet</servlet-name>
@@ -70,6 +74,11 @@
 	<servlet-mapping>
 		<servlet-name>Jstl3</servlet-name>
 		<url-pattern>/user/delete</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Jstl5</servlet-name>
+		<url-pattern>/dept/number</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
