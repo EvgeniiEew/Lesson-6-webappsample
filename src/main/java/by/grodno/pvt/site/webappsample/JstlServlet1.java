@@ -1,7 +1,6 @@
 package by.grodno.pvt.site.webappsample;
 
 import java.io.IOException;
-import java.security.KeyStore.Entry.Attribute;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -20,7 +19,7 @@ public class JstlServlet1 extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         List<User> users = UserService.getService().getUsers();
-        List<Department> departments = DepartmentService.getDepService().getDepartment();
+        List<Department> departments = DepartmentService.getDepService().getDepartments();
         req.setAttribute("users", users);
         req.setAttribute("departments", departments);
         getServletContext().getRequestDispatcher("/jstl1.jsp").forward(req, resp);

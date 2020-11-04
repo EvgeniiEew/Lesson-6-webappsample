@@ -20,7 +20,7 @@ public class DepartmentService {
         return departmentService;
     }
 
-    public List<Department> getDepartment() {
+    public List<Department> getDepartments() {
         List<Department> result = new ArrayList<Department>();
         try (Connection conn = DBUtils.getConnetion(); Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(SQL.SELECT_ALL_Dep);
@@ -58,37 +58,39 @@ public class DepartmentService {
     public List<Department> getDepUser(String parameter) {
         List<Department> departmentsArrayList = new ArrayList<Department>();
         delList();
-        try (Connection conn = DBUtils.getConnetion(); Statement stmt = conn.createStatement()) {
-            ResultSet SelAll = stmt.executeQuery("select *  from testtable a right join  dept b on a.dept_num = b.id  where b.id = ".concat(parameter));
-            while (SelAll.next()) {
-                User user = ToUser(SelAll);
+        try (Connection conn = DBUtils.getConnetion(); PreparedStatement stmt = conn.prepareStatement(SQL.SELECT_ALL_DEPTNUM)) {
+            int number = Integer.parseInt(parameter);
+            stmt.setInt(1, number);
+            ResultSet queryResaltSet = stmt.executeQuery();
+            while (queryResaltSet.next()) {
+                User user = ToUser(queryResaltSet);
                 this.userArrayList.add(user);
-                Department department = ToDepartment(SelAll);
+                Department department = ToDepartment(queryResaltSet);
                 departmentsArrayList.add(department);
             }
-            SelAll.close();
+            queryResaltSet.close();
         } catch (Exception e) {
             LOGGER.error("Something went wrong...", e);
         }
         return departmentsArrayList;
     }
 
-    private Department ToDepartment(ResultSet SelAll) throws SQLException {
-        Integer id = SelAll.getInt(8);
-        String nameDept = SelAll.getString(9);
+    private Department ToDepartment(ResultSet queryResaltSet) throws SQLException {
+        Integer id = queryResaltSet.getInt(8);
+        String nameDept = queryResaltSet.getString(9);
         Department department = new Department(id, nameDept);
         return department;
     }
 
-    private User ToUser(ResultSet SelAll) throws SQLException {
-        Integer id = SelAll.getInt(1);
-        String fName = SelAll.getString(2);
-        String lName = SelAll.getString(3);
-        Double sal = SelAll.getDouble(4);
-        Date date = SelAll.getTimestamp(5);
-        Boolean male = SelAll.getBoolean(6);
-        Integer depNumber = SelAll.getInt(7);
-        String nameDept = SelAll.getString(9);
+    private User ToUser(ResultSet queryResaltSet) throws SQLException {
+        Integer id = queryResaltSet.getInt(1);
+        String fName = queryResaltSet.getString(2);
+        String lName = queryResaltSet.getString(3);
+        Double sal = queryResaltSet.getDouble(4);
+        Date date = queryResaltSet.getTimestamp(5);
+        Boolean male = queryResaltSet.getBoolean(6);
+        Integer depNumber = queryResaltSet.getInt(7);
+        String nameDept = queryResaltSet.getString(9);
         User user = new User(id, fName, lName, date, male, sal, depNumber, nameDept);
         return user;
     }

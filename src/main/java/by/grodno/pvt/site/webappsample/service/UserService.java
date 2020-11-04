@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,7 +75,7 @@ public class UserService {
 
     public void updateUser(User user, Integer number) {
         try (Connection conn = DBUtils.getConnetion();
-             PreparedStatement stmt = conn.prepareStatement(SQL.EDIT_ALL)) {
+             PreparedStatement stmt = conn.prepareStatement(SQL.UPDATE_BY_ID)) {
 
             stmt.setString(1, user.getFirstName());
             stmt.setString(2, user.getLastName());
