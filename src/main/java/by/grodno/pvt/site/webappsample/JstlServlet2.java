@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import by.grodno.pvt.site.webappsample.service.User;
 import by.grodno.pvt.site.webappsample.service.UserService;
 
+import static by.grodno.pvt.site.webappsample.service.UserService.LOGGER;
+
 public class JstlServlet2 extends HttpServlet {
 
     @Override
@@ -30,7 +32,7 @@ public class JstlServlet2 extends HttpServlet {
             UserService.getService().addUser(user);
 
         } catch (ParseException e) {
-            e.printStackTrace();
+            LOGGER.error("Something went wrong...", e);
         }
         resp.sendRedirect("/webappsample/jstl1");
     }

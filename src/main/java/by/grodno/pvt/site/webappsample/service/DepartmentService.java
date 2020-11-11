@@ -8,7 +8,6 @@ import static by.grodno.pvt.site.webappsample.service.UserService.LOGGER;
 
 public class DepartmentService {
     private static DepartmentService departmentService;
-    List<User> userArrayList = new ArrayList<User>();
 
     private DepartmentService() {
     }
@@ -47,52 +46,35 @@ public class DepartmentService {
         return department;
     }
 
-    public List<User> getUserfDep() {
-        return this.userArrayList;
-    }
-
-    public void delList() {
-        this.userArrayList.clear();
-    }
-
-    public List<Department> getDepUser(String parameter) {
-        List<Department> departmentsArrayList = new ArrayList<Department>();
-        delList();
+    public List<UserDep> getDepUser(String parameter) {
+        List<UserDep> departmentsUserArrayList = new ArrayList<UserDep>();
         try (Connection conn = DBUtils.getConnetion(); PreparedStatement stmt = conn.prepareStatement(SQL.SELECT_ALL_DEPTNUM)) {
             int number = Integer.parseInt(parameter);
             stmt.setInt(1, number);
             ResultSet queryResaltSet = stmt.executeQuery();
             while (queryResaltSet.next()) {
-                User user = ToUser(queryResaltSet);
-                this.userArrayList.add(user);
-                Department department = ToDepartment(queryResaltSet);
-                departmentsArrayList.add(department);
+                UserDep userDep = retrieveDepUser(queryResaltSet);
+                departmentsUserArrayList.add(userDep);
             }
             queryResaltSet.close();
         } catch (Exception e) {
             LOGGER.error("Something went wrong...", e);
         }
-        return departmentsArrayList;
+        return departmentsUserArrayList;
     }
 
-    private Department ToDepartment(ResultSet queryResaltSet) throws SQLException {
-        Integer id = queryResaltSet.getInt(8);
-        String nameDept = queryResaltSet.getString(9);
-        Department department = new Department(id, nameDept);
-        return department;
-    }
-
-    private User ToUser(ResultSet queryResaltSet) throws SQLException {
-        Integer id = queryResaltSet.getInt(1);
+    private UserDep retrieveDepUser(ResultSet queryResaltSet) throws SQLException {
+        Integer idUser = queryResaltSet.getInt(1);
         String fName = queryResaltSet.getString(2);
         String lName = queryResaltSet.getString(3);
-        Double sal = queryResaltSet.getDouble(4);
+        Double salary = queryResaltSet.getDouble(4);
         Date date = queryResaltSet.getTimestamp(5);
         Boolean male = queryResaltSet.getBoolean(6);
         Integer depNumber = queryResaltSet.getInt(7);
+        Integer idDept = queryResaltSet.getInt(8);
         String nameDept = queryResaltSet.getString(9);
-        User user = new User(id, fName, lName, date, male, sal, depNumber, nameDept);
-        return user;
+        UserDep userDep = new UserDep(idUser, fName, lName, salary, date, male, depNumber, idDept, nameDept);
+        return userDep;
     }
 
     public void addDepartment(Department newDepartment) {

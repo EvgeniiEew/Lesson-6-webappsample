@@ -1,9 +1,6 @@
 package by.grodno.pvt.site.webappsample;
 
-import by.grodno.pvt.site.webappsample.service.Department;
-import by.grodno.pvt.site.webappsample.service.DepartmentService;
-import by.grodno.pvt.site.webappsample.service.User;
-import by.grodno.pvt.site.webappsample.service.UserService;
+import by.grodno.pvt.site.webappsample.service.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +16,11 @@ public class JstlServlet5Dept extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String parameter = req.getParameter("number");
-        List<User> users = DepartmentService.getDepService().getUserfDep();
-        List<Department> departments = DepartmentService.getDepService().getDepUser(parameter);
-        req.setAttribute("users", users);
-        req.setAttribute("departments", departments);
+        //List<User> users = DepartmentService.getDepService().getUserfDep();
+      //  List<Department> departments = DepartmentService.getDepService().getDepUser(parameter);
+        List<UserDep> userDeps = DepartmentService.getDepService().getDepUser(parameter);
+        req.setAttribute("userDeps", userDeps);
+      //  req.setAttribute("departments", departments);
         getServletContext().getRequestDispatcher("/jstl3.jsp").forward(req, resp);
     }
 

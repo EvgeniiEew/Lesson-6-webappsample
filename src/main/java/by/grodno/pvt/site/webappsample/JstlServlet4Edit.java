@@ -11,21 +11,22 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import static by.grodno.pvt.site.webappsample.service.UserService.LOGGER;
+
 public class JstlServlet4Edit extends HttpServlet {
     private int currentUserIndex;
     private int userIdSub;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String parameter = req.getParameter("number");
         int index = Integer.parseInt(parameter);
         this.currentUserIndex = index;
         User userForEdit = UserService.getService().getUsers().get(index);
-
         String numberUserFoSUBD = req.getParameter("k");
         int userId = Integer.parseInt(numberUserFoSUBD);
         this.userIdSub = userId;
-
         req.setAttribute("user", userForEdit);
         req.setAttribute("number", index);
         getServletContext().getRequestDispatcher("/jstl2.jsp").forward(req, resp);
@@ -34,7 +35,7 @@ public class JstlServlet4Edit extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            User newUser = new User(null,
+            User newUser = new User(this.userIdSub,
                     req.getParameter("firstName"),
                     req.getParameter("lastName"),
                     new SimpleDateFormat("yyy-MM-dd").parse(req.getParameter("birthdate")),
@@ -42,9 +43,9 @@ public class JstlServlet4Edit extends HttpServlet {
                     Double.valueOf(req.getParameter("salary")),
                     Integer.valueOf(req.getParameter("depNumber")),
                     req.getParameter("nameDept"));
-            UserService.getService().updateUser(newUser, this.userIdSub);
+            UserService.getService().updateUser(newUser);
         } catch (ParseException e) {
-            e.printStackTrace();
+            LOGGER.error("Something went wrong...", e);
         }
         resp.sendRedirect("/webappsample/jstl1");
     }

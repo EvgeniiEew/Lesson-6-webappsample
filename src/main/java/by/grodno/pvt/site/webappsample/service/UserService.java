@@ -73,7 +73,7 @@ public class UserService {
 
     }
 
-    public void updateUser(User user, Integer number) {
+    public void updateUser(User user) {
         try (Connection conn = DBUtils.getConnetion();
              PreparedStatement stmt = conn.prepareStatement(SQL.UPDATE_BY_ID)) {
 
@@ -85,7 +85,7 @@ public class UserService {
             stmt.setBoolean(5, user.isMale());
 //            when changing the user, you can change the department number.
             stmt.setInt(6, user.getDepNumber());
-            stmt.setInt(7, number);
+            stmt.setInt(7, user.getId());
             stmt.executeUpdate();
         } catch (Exception e) {
             LOGGER.error("error...", e);
