@@ -30,9 +30,6 @@
             <label for="createFemale">Female</label><br>
             Salary: <input type="text" name="salary"/>
             <br/>
-            depNumber: <input type="text" name="depNumber"/>
-            <br/>
-            <br/>
             nameDept: <input type="text" name="nameDept"/>
             <br/>
 
@@ -60,9 +57,6 @@
             <br>
             <label for="createFemale">Female</label><br>
             Salary: <input type="text" name="salary"/>
-            <br/>
-            depNumber: <input type="text" name="depNumber" value="${currUser.depNumber}"/>
-            <br/>
             <br/>
             nameDept: <input type="text" name="nameDept" value="${currUser.nameDept}"/>
             <br/>

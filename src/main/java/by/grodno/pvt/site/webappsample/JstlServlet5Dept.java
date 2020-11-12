@@ -17,11 +17,16 @@ public class JstlServlet5Dept extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String parameter = req.getParameter("number");
         //List<User> users = DepartmentService.getDepService().getUserfDep();
+        List<User> users = UserService.getService().getUsers();
+        List<Department> departments = DepartmentService.getDepService().getDepartments();
+        req.setAttribute("users", users);
+        req.setAttribute("departments", departments);
       //  List<Department> departments = DepartmentService.getDepService().getDepUser(parameter);
         List<UserDep> userDeps = DepartmentService.getDepService().getDepUser(parameter);
         req.setAttribute("userDeps", userDeps);
       //  req.setAttribute("departments", departments);
-        getServletContext().getRequestDispatcher("/jstl3.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/jstl1.jsp").include(req, resp);
+//        jstl 3
     }
 
     @Override

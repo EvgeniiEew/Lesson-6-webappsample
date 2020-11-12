@@ -87,4 +87,34 @@ public class DepartmentService {
             LOGGER.error("Something went wrong...", e);
         }
     }
+
+    public ArrayList<String> checkingDepartmentPresence(String nameDep) {
+        ArrayList<String> newDep = new ArrayList<String>();
+        List<Department> listDepatrment = getDepartments();
+        for (Department department : listDepatrment) {
+            if (department.getNameDept().equals(nameDep)) {
+                String deptNam = Integer.toString(department.getDepNumber());
+                newDep.add(0, deptNam);
+                newDep.add(1, nameDep);
+                break;
+            }
+        }
+        if (newDep.size() == 0) {
+            try (Connection conn = DBUtils.getConnetion();
+                 PreparedStatement stmt = conn.prepareStatement(SQL.INSERT_DEPT, Statement.RETURN_GENERATED_KEYS)) {
+                ResultSet generatedKeys = stmt.getGeneratedKeys();
+                Department newDepartment = new Department(listDepatrment.size()+1, nameDep);
+                stmt.setInt(1, newDepartment.getDepNumber());
+                stmt.setString(2, newDepartment.getNameDept());
+                stmt.executeUpdate();
+                newDep.add(0, String.valueOf(newDepartment.getDepNumber()));
+                newDep.add(1, nameDep);
+                generatedKeys.next();
+                LOGGER.info("Dept created with id: " + generatedKeys.getLong(1));
+            } catch (Exception e) {
+                LOGGER.error("Something went wrong...", e);
+            }
+        }
+        return newDep;
+    }
 }
