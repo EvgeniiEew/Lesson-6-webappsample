@@ -88,33 +88,39 @@ public class DepartmentService {
         }
     }
 
-    public ArrayList<String> checkingDepartmentPresence(String nameDep) {
-        ArrayList<String> newDep = new ArrayList<String>();
-        List<Department> listDepatrment = getDepartments();
-        for (Department department : listDepatrment) {
+    public Department checkingDepartmentPresence(String nameDep) {
+
+        List<Department> listDepartment = getDepartments();
+        for (Department department : listDepartment) {
             if (department.getNameDept().equals(nameDep)) {
-                String deptNam = Integer.toString(department.getDepNumber());
-                newDep.add(0, deptNam);
-                newDep.add(1, nameDep);
-                break;
+                return department;
             }
         }
-        if (newDep.size() == 0) {
-            try (Connection conn = DBUtils.getConnetion();
-                 PreparedStatement stmt = conn.prepareStatement(SQL.INSERT_DEPT, Statement.RETURN_GENERATED_KEYS)) {
-                ResultSet generatedKeys = stmt.getGeneratedKeys();
-                Department newDepartment = new Department(listDepatrment.size()+1, nameDep);
-                stmt.setInt(1, newDepartment.getDepNumber());
-                stmt.setString(2, newDepartment.getNameDept());
-                stmt.executeUpdate();
-                newDep.add(0, String.valueOf(newDepartment.getDepNumber()));
-                newDep.add(1, nameDep);
-                generatedKeys.next();
-                LOGGER.info("Dept created with id: " + generatedKeys.getLong(1));
-            } catch (Exception e) {
-                LOGGER.error("Something went wrong...", e);
-            }
+        try (Connection conn = DBUtils.getConnetion();
+             PreparedStatement stmt = conn.prepareStatement(SQL.INSERT_DEPT, Statement.RETURN_GENERATED_KEYS)) {
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            stmt.setString(2, nameDep);
+            stmt.executeUpdate();
+            generatedKeys.next();
+            LOGGER.info("Dept created with id: " + generatedKeys.getLong(1));
+        } catch (Exception e) {
+            LOGGER.error("Something went wrong...", e);
         }
-        return newDep;
+        return this.getDepByName(nameDep);
+    }
+
+    public Department getDepByName(String nameDep) {
+
+        try (Connection conn = DBUtils.getConnetion(); PreparedStatement
+                stmt = conn.prepareStatement(SQL.SELECT_DEPARTMENT_BY_NAME)) {
+            stmt.setString(1, nameDep);
+            ResultSet queryResaltSet = stmt.executeQuery();
+          //  Integer idDep = queryResaltSet.getInt(1);
+           // String depName = queryResaltSet.getString(2);
+            Department department  = new Department(queryResaltSet.getInt(1),queryResaltSet.getString(2));
+        } catch (Exception e) {
+            LOGGER.error("Something went wrong...", e);
+        }
+        return department;
     }
 }

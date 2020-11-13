@@ -13,4 +13,5 @@ public class SQL {
     public static final String SELECT_ALL_Dep = "select *  from dept  order by id";
     public static final String SELECT_ALL_DEPTNUM = "select *  from users u right join  dept b on u.dept_num = b.id  where b.id = ?";
     public static final String INSERT_DEPT ="INSERT INTO public.dept (id, dept_name) VALUES (?,?) ";
+    public static final String  SELECT_DEPARTMENT_BY_NAME ="Select * from dept where dept_name = ?";
 }

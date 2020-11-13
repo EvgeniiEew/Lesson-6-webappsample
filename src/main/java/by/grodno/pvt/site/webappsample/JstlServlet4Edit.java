@@ -1,5 +1,6 @@
 package by.grodno.pvt.site.webappsample;
 
+import by.grodno.pvt.site.webappsample.service.Department;
 import by.grodno.pvt.site.webappsample.service.DepartmentService;
 import by.grodno.pvt.site.webappsample.service.User;
 import by.grodno.pvt.site.webappsample.service.UserService;
@@ -37,7 +38,7 @@ public class JstlServlet4Edit extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            ArrayList<String> depNumDepName = DepartmentService.getDepService().checkingDepartmentPresence(req.getParameter("nameDept"));
+            Department department = DepartmentService.getDepService().checkingDepartmentPresence(req.getParameter("nameDept"));
             User newUser = new User(this.userIdSub,
                     req.getParameter("firstName"),
                     req.getParameter("lastName"),
@@ -46,12 +47,12 @@ public class JstlServlet4Edit extends HttpServlet {
                     Double.valueOf(req.getParameter("salary")),
 //                    Integer.valueOf(req.getParameter("depNumber")),
 //                    req.getParameter("nameDept"));
-                    Integer.valueOf(depNumDepName.get(0)),
-                    depNumDepName.get(1));
+                    department.getDepNumber(),
+                    department.getNameDept());
             UserService.getService().updateUser(newUser);
-        } catch (ParseException e) {
-            LOGGER.error("Something went wrong...", e);
-        }
+    } catch (ParseException e) {
+        LOGGER.error("Something went wrong...", e);
+    }
         resp.sendRedirect("/webappsample/jstl1");
     }
 }
