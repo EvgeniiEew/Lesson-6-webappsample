@@ -8,7 +8,9 @@ public class Department {
         this.depNumber = depNumber;
         this.nameDept = nameDept;
     }
+      public   Department(){
 
+        }
     public Integer getDepNumber() {
         return depNumber;
     }

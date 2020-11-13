@@ -108,7 +108,7 @@ public class DepartmentService {
         }
         return this.getDepByName(nameDep);
     }
-
+    // todo fix
     public Department getDepByName(String nameDep) {
 
         try (Connection conn = DBUtils.getConnetion(); PreparedStatement
@@ -118,9 +118,10 @@ public class DepartmentService {
           //  Integer idDep = queryResaltSet.getInt(1);
            // String depName = queryResaltSet.getString(2);
             Department department  = new Department(queryResaltSet.getInt(1),queryResaltSet.getString(2));
+            return department;
         } catch (Exception e) {
             LOGGER.error("Something went wrong...", e);
         }
-        return department;
+        return  new Department();
     }
 }
